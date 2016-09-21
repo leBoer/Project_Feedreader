@@ -57,24 +57,35 @@ $(function() {
             // Reset the body class to menu-hidden
             $('body').toggleClass('menu-hidden');
         });
-
-
     });
-         
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+    describe('Initial Entries', function() {
+        beforeEach(function(done) {
+            loadFeed(0, done)
+        });
+        it('contains at least a single .entry element in the .feed container', function(done) {
+            expect($('.feed .entry').length).toBeGreaterThan(0);
+            done();
+        });
+    });
 
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
+    describe('New Feed Selection', function() {
+        var feed1;
+        var feed2;
 
-    /* TODO: Write a new test suite named "New Feed Selection"
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                feed1 = $('.feed')[0].outerText;
+                done();
+            });
+        });
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
+        it('actually changes the content', function(done) {
+            loadFeed(1, function(){
+                feed2 = $('.feed')[0].outerText;
+                expect(feed1 == feed2).toBeFalsy();
+                done();
+            });
+        });
+    });
 }());

@@ -119,7 +119,7 @@ $(function() {
      */
     feedList.on('click', 'a', function() {
         var item = $(this);
-
+        console.log(item);
         $('body').addClass('menu-hidden');
         loadFeed(item.data('id'));
         return false;
